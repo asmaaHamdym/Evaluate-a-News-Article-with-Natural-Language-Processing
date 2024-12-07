@@ -33,6 +33,8 @@ const PostUrl = async (url = "", data) => {
   });
   try {
     const newData = await response.json();
+    console.log(newData);
+
     result.innerHTML = newData.topics[0];
 
     return newData;

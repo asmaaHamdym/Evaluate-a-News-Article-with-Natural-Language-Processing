@@ -1,66 +1,29 @@
-var path = require("path");
 const express = require("express");
-const dotenv = require("dotenv");
-dotenv.config();
+const cors = require("cors");
+const analyzeUrl = require("./fetch");
 
 const app = express();
-
-const cors = require("cors");
-const { log } = require("console");
 
 app.use(cors());
 app.use(express.static("dist"));
 app.use(express.json());
 
-console.log(__dirname);
-
-// Variables for url and api key
-let url;
-let api_key = process.env.API_KEY;
-
 app.get("/", function (req, res) {
   res.sendFile("dist/index.html");
 });
 
-async function analyzeUrl(url) {
-  const endpoint = "https://api.textrazor.com/";
+app.get("/api/", function (req, res) {
+  const { url } = req.query;
 
-  const formData = new URLSearchParams();
-  formData.append("apiKey", api_key);
-  formData.append("url", url);
-  formData.append("extractors", "senses,topics");
-
-  try {
-    const response = await fetch(endpoint, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body: formData,
-    });
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error("Error analyzing URL:", error);
-    throw error;
+  if (!url) {
+    return res.status(400).json({ error: "URL is required" });
   }
-}
 
-// POST Route
-const receiveUrl = async (req, res) => {
-  url = req.body.message;
   analyzeUrl(url)
-    .then((result) => console.log(result))
-    .catch((error) => console.error(error));
-};
-app.post("/add", receiveUrl);
+    .then((data) => res.send(data))
+    .catch((error) => res.status(500).json({ error: error.message }));
+});
 
-// Designates what port the app will listen to for incoming requests
-app.listen(8000, function () {
-  console.log(`App is running here: http://localhost:8000/`);
+app.listen(8081, function () {
+  console.log(`App is running here: http://localhost:8081/`);
 });
