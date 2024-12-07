@@ -7,9 +7,12 @@ module.exports = {
   entry: "./src/client/index.js",
   mode: "development",
   output: {
+    libraryTarget: "var",
+    library: "Client",
     path: path.resolve(__dirname, "dist"),
     filename: "main.js",
   },
+
   devtool: "source-map",
   stats: "verbose",
   module: {
