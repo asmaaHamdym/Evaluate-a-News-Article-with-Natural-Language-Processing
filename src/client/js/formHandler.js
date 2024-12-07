@@ -3,6 +3,8 @@ import { checkUrl } from "./urlChecker";
 const form = document.getElementById("urlForm");
 form.addEventListener("submit", handleSubmit);
 
+const result = document.getElementById("results");
+
 function handleSubmit(event) {
   event.preventDefault();
 
@@ -10,7 +12,12 @@ function handleSubmit(event) {
   const url = document.getElementById("name").value;
 
   if (Client.checkUrl(url)) {
-    PostUrl("add", { message: url });
+    PostUrl("add", { message: url }).then(() => {
+      document.getElementById("name").value = "";
+    });
+  } else {
+    alert("Please enter a valid URL.");
+    return;
   }
 }
 
@@ -26,6 +33,8 @@ const PostUrl = async (url = "", data) => {
   });
   try {
     const newData = await response.json();
+    result.innerHTML = newData.topics[0];
+
     return newData;
   } catch (error) {
     console.log("error", error);

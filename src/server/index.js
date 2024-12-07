@@ -28,7 +28,7 @@ async function analyzeUrl(url) {
   const formData = new URLSearchParams();
   formData.append("apiKey", api_key);
   formData.append("url", url);
-  formData.append("extractors", "entities,topics");
+  formData.append("extractors", "senses,topics");
 
   try {
     const response = await fetch(endpoint, {
