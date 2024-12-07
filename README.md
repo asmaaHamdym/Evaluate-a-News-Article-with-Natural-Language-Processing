@@ -37,5 +37,50 @@ Ensure you have the following installed:
 1. Clone the repository:
    ```bash
    git clone https://github.com/your-username/your-repo.git
-   `cd` into your new folder and run: `npm install`
+   cd your-repo
    ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Create a .env file in the root directory and add your MeaningCloud API key:
+
+   ```env
+   MEANINGCLOUD_API_KEY=your_api_key
+   ```
+
+4. Start the development server:
+
+   ```bash
+   npm run start
+   ```
+
+### Scripts
+
+- Start the server:
+
+  ```bash
+  npm start
+  ```
+
+- Run the development server with hot reloading:
+
+  ```bash
+  npm run build-dev
+  ```
+
+- Build for production:
+
+  ```bash
+  npm run build-prod
+  ```
+
+- Run tests:
+
+  ```bash
+  npm test
+  ```
+
+### License
+
+This project is licensed under the MIT License. See the LICENSE file for details.
