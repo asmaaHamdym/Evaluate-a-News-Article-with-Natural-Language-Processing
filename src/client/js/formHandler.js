@@ -1,4 +1,4 @@
-import { mapSentiment } from "../mapSentiment";
+// import { mapSentiment } from "../mapSentiment";
 
 const form = document.getElementById("urlForm");
 form.addEventListener("submit", handleSubmit);
@@ -10,7 +10,7 @@ function updateUI(data) {
   result.innerHTML = "";
 
   // Create new elements for the results
-  const sentimentValue = mapSentiment(data.score_tag);
+  const sentimentValue = Client.mapSentiment(data.score_tag);
   const sentiment = document.createElement("p");
   sentiment.textContent = `Sentiment: ${sentimentValue}`;
   result.appendChild(sentiment);
@@ -46,4 +46,4 @@ function handleSubmit(event) {
 }
 
 // Export the handleSubmit function
-export { handleSubmit, mapSentiment };
+export { handleSubmit };
