@@ -1,17 +1,16 @@
 const dotenv = require("dotenv");
 dotenv.config();
 
-let api_key = process.env.API_KEY;
-
 async function analyzeUrl(url) {
   const reqestParams = new FormData();
-  reqestParams.append("apiKey", api_key);
+  reqestParams.append("key", process.env.API_KEY);
   reqestParams.append("url", url);
   reqestParams.append("lang", "en");
 
   try {
     const response = await fetch("https://api.meaningcloud.com/sentiment-2.1", {
       method: "POST",
+      contentType: "application/multipart/form-data",
       body: reqestParams,
       redirect: "follow",
     });

@@ -41,7 +41,7 @@ Ensure you have the following installed:
    ```
 2. Install dependencies:
    ```bash
-   npm install
+   npm install --legacy-peer-deps
    ```
 3. Create a .env file in the root directory and add your MeaningCloud API key:
 
