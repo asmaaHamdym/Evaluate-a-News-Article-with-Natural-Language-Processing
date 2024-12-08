@@ -1,18 +1,9 @@
-import { checkUrl } from "./urlChecker";
+import { mapSentiment } from "../mapSentiment";
 
 const form = document.getElementById("urlForm");
 form.addEventListener("submit", handleSubmit);
 
 const result = document.getElementById("results");
-
-function mapSentiment(sentiment) {
-  if (sentiment === "P+") return "Strong Positive";
-  if (sentiment === "P") return "Positive";
-  if (sentiment === "N") return "Negative";
-  if (sentiment === "N+") return "Strong Negative";
-  if (sentiment === "NEU") return "Neutral";
-  return "Without Polarity";
-}
 
 function updateUI(data) {
   // Clear the previous results
@@ -38,6 +29,10 @@ function handleSubmit(event) {
 
   // Get the URL from the input field
   const url = document.getElementById("name").value;
+  if (!url) {
+    alert("Please enter a URL.");
+    return;
+  }
 
   if (Client.checkUrl(url)) {
     fetch(`http://localhost:8000/api?url=${url}`)
@@ -51,4 +46,4 @@ function handleSubmit(event) {
 }
 
 // Export the handleSubmit function
-export { handleSubmit };
+export { handleSubmit, mapSentiment };
